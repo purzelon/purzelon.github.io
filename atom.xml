@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://purzelon.github.io/</id>
     <title>MuLizb</title>
-    <updated>2020-11-29T14:14:19.454Z</updated>
+    <updated>2020-11-29T14:17:32.644Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://purzelon.github.io/"/>
     <link rel="self" href="https://purzelon.github.io/atom.xml"/>
@@ -10,6 +10,447 @@
     <logo>https://purzelon.github.io/images/avatar.png</logo>
     <icon>https://purzelon.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, MuLizb</rights>
+    <entry>
+        <title type="html"><![CDATA[Manjaro安装记录]]></title>
+        <id>https://purzelon.github.io/ABtHIrRIg/</id>
+        <link href="https://purzelon.github.io/ABtHIrRIg/">
+        </link>
+        <updated>2020-11-29T14:17:13.000Z</updated>
+        <content type="html"><![CDATA[<p>转自:<strong>http://7zhst5.coding-pages.com/</strong></p>
+<h1 id="manjaro安装记录">Manjaro安装记录</h1>
+<h2 id="1安装完成manjaro初始配置镜像源">1.安装完成Manjaro，初始配置镜像源</h2>
+<h3 id="1打开终端输入命令">1.打开终端，输入命令：</h3>
+<pre><code>$ sudo pacman-mirrors -i -c China -m rank
+</code></pre>
+<p>这时系统会对中国的镜像进行测速，并在弹出窗口中列出,刷新缓存：</p>
+<pre><code>$ sudo pacman -Syy
+</code></pre>
+<h3 id="2添加一下archlinuxcn的源打开终端输入命令">2.添加一下ArchLinuxCN的源,打开终端，输入命令：</h3>
+<pre><code>$ sudo gedit /etc/pacman.conf   # Gnome中
+$ sudo nano /etc/pacman.conf    # KDE中
+</code></pre>
+<p>在打开的文件的末尾添加如下内容：</p>
+<pre><code>[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+注:可以通过文件夹打开手动添加
+</code></pre>
+<p>注：可以直接进入根目录下的etc目录找到pacman.conf文件，直接修改</p>
+<h3 id="3更新缓存以及导入密钥链">3.更新缓存以及导入密钥链：</h3>
+<pre><code>$ sudo pacman -Syy &amp;&amp; sudo pacman -S archlinuxcn-keyring
+</code></pre>
+<p><strong>注意</strong>，你在执行更新命令时可能会报错，这时你只需再执行一遍即可。</p>
+<pre><code>$ sudo pacman -Syy  # 这一条命令是用来刷新更新缓存的。
+</code></pre>
+<h3 id="4更新系统">4.更新系统：</h3>
+<pre><code>$ sudo pacman -Syyu
+</code></pre>
+<p>最后重启系统，Manajro的配置与更新基本完成。</p>
+<pre><code>$ reboot
+</code></pre>
+<h2 id="2解决由于系统本身引起的一些问题">2.解决由于系统本身引起的一些问题</h2>
+<h3 id="1vmware中manjaro无法复制黏贴文件的问题">1.VMware中Manjaro无法复制黏贴（文件）的问题：</h3>
+<p>首先卸载open-vm-tools:</p>
+<pre><code>$ sudo pacman -R open-vm-tools
+</code></pre>
+<p>下载VMware Tools补丁：</p>
+<pre><code>git clone https://github.com/rasa/vmware-tools-patches.git
+</code></pre>
+<p>进入vmware-tools-patches目录：</p>
+<pre><code>$ cd vmware-tools-patches
+</code></pre>
+<p>运行补丁：</p>
+<pre><code>$ sudo ./patched-open-vm-tools.sh
+</code></pre>
+<p>重启：</p>
+<pre><code>$ reboot
+</code></pre>
+<h3 id="2manjaro修改主目录为英文">2.Manjaro修改主目录为英文</h3>
+<p>代码如下：</p>
+<pre><code>$ sudo pacman -S xdg-user-dirs-gtk
+$ export LANG=en_US
+$ xdg-user-dirs-gtk-update #会有个窗口提示语言更改，更新名称即可
+$ export LANG=zh_CN.UTF-8 #然后重启电脑如果提示语言更改，保留旧的名称即可
+</code></pre>
+<h3 id="3解决manjaro中firefox为英文的问题并安装-flash-player">3.解决Manjaro中FireFox为英文的问题，并安装 Flash Player</h3>
+<p>安装FireFox浏览器：</p>
+<pre><code>$ sudo pacman -S --noconfirm firefox
+</code></pre>
+<p>安装中文插件：</p>
+<pre><code>$ sudo pacman -S --noconfirm firefox-i18n-zh-cn
+</code></pre>
+<p>完整命令：</p>
+<pre><code>$ sudo pacman -S --noconfirm firefox firefox-i18n-zh-cn
+</code></pre>
+<p>安装 Flash Player</p>
+<pre><code>yay -S freshplayerplugin
+下载 Flash Player 的压缩包: https://get.adobe.com/flashplayer/?loc=cn
+在当前目录解压文件，并在终端执行:
+$ sudo cp libflashplayer.so /usr/lib/mozilla/plugins
+</code></pre>
+<h3 id="4解决linux-与-windows-双系统时间不一致的问题">4.解决Linux 与 Windows 双系统时间不一致的问题</h3>
+<p>在Manjaro中：</p>
+<pre><code>$ sudo timedatectl set-local-rtc true
+$ sudo pacman -S openntpd
+$ systemctl restart openntpd
+$ systemctl enable openntpd
+</code></pre>
+<p>在Windows中：</p>
+<pre><code># 以管理员身份使用运行
+reg add &quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot; /v RealTimeIsUniversal /d 1 /t REG_DWORD /f
+
+# 以上方法无效或64位系统：
+reg add &quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot; /v RealTimeIsUniversal /d 1 /t REG_QWORD /f
+</code></pre>
+<h3 id="5解决kde安装wine软件的错误">5.解决KDE安装Wine软件的错误</h3>
+<pre><code>$ yay -S xsettingsd
+# 安装gnome-settings-daemon
+$ yay -S gnome-settings-daemon
+# 设置gnome-settings-daemon自启动
+$ sudo cp /etc/xdg/autostart/org.gnome.SettingsDaemon.XSettings.desktop ~/.config/autostart
+
+$ sudo pacman -S wine-mono
+$ sudo pacman -S wine-gecko
+
+# Linux下更改QQ，TIM,微信的DPI
+env WINEPREFIX=&quot;$HOME/.deepinwine/Deepin-QQ&quot; /usr/bin/deepin-wine winecfg
+env WINEPREFIX=&quot;$HOME/.deepinwine/Deepin-TIM&quot; /usr/bin/deepin-wine winecfg
+env WINEPREFIX=&quot;$HOME/.deepinwine/Deepin-WeChat&quot; /usr/bin/deepin-wine winecfg
+
+# WINE-QQ 头像图片加载异常时，执行以下命令 
+$ sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+$ sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+$ sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+
+# 微信失去焦点出现透明边框时，先点击置顶，再取消即可
+# 当微信不能发图片
+# 进入 https://github.com/countstarlight/deepin-wine-wechat-arch/releases 下载兼容版本微信
+$ sudo pacman -U deepin-wine-wechat-2.7.1.88-1-x86_64.pkg.tar.xz
+</code></pre>
+<h2 id="3安装软件">3.安装软件</h2>
+<h3 id="1中文输入法谷歌拼音">1.中文输入法（谷歌拼音）</h3>
+<p>安装输入法：</p>
+<pre><code>$ sudo pacman -S fcitx-im  # 默认全部安装
+$ sudo pacman -S fcitx-configtool
+$ sudo pacman -S fcitx-googlepinyin
+</code></pre>
+<p>添加输入法配置文件：</p>
+<pre><code>$ sudo gedit ~/.xprofile    # Gnome中
+$ sudo nano ~/.xprofile     # KDE中
+</code></pre>
+<p>在文件中添加如下内容：</p>
+<pre><code>export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=&quot;@im=fcitx&quot;
+注:可以带当前用户主目录下手动创建 &quot;.xprofile&quot; 文件并写入
+</code></pre>
+<p>重启系统：</p>
+<pre><code>$ reboot
+</code></pre>
+<h3 id="2vim">2.Vim</h3>
+<pre><code>$ sudo pacman -S vim
+</code></pre>
+<h3 id="3aur助手以防官方仓库没有想要的软件">3.AUR助手（以防官方仓库没有想要的软件）</h3>
+<pre><code>$ sudo pacman -S yay
+</code></pre>
+<h3 id="4goolgle-chrome">4.Goolgle Chrome</h3>
+<pre><code>$ sudo pacman -S google-chrome
+</code></pre>
+<h3 id="5markdown编辑器-typora">5.Markdown编辑器 Typora</h3>
+<pre><code>$ sudo pacman -S typora
+</code></pre>
+<h3 id="6wps">6.WPS</h3>
+<pre><code>$ sudo pacman -S wps-office
+$ sudo pacman -S ttf-wps-fonts
+$ sudo pacman -S wps-office-mui-zh-cn #解决WPS安装后菜单栏为英文的问题
+</code></pre>
+<h3 id="7安装中文字体">7.安装中文字体</h3>
+<pre><code>$ sudo pacman -S ttf-roboto noto-fonts ttf-dejavu
+$ sudo pacman -S wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei  # 文泉驿
+$ sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts # 思源字体
+</code></pre>
+<h3 id="8网易云音乐">8.网易云音乐</h3>
+<pre><code>$ sudo pacman -S netease-cloud-music
+</code></pre>
+<h3 id="9qq">9.QQ</h3>
+<pre><code>$ sudo pacman -S linuxqq
+$ sudo pacman -S deepin.com.qq.im       #QQ
+$ sudo pacman -S deepin.com.qq.office   #Tim
+</code></pre>
+<h3 id="10wechat">10.WeChat</h3>
+<pre><code>$ sudo pacman -S deepin-wine-wechat
+</code></pre>
+<h3 id="11截图工具">11.截图工具</h3>
+<pre><code>$ sudo pacman -S flameshot-git
+</code></pre>
+<h3 id="12为知笔记">12.为知笔记</h3>
+<pre><code>$ sudo pacman -S wiznote
+</code></pre>
+<h3 id="13深度截图">13.深度截图</h3>
+<pre><code>$ sudo pacman -S deepin-screenshot
+</code></pre>
+<h3 id="14深度录屏">14.深度录屏</h3>
+<pre><code>$ sudo pacman -S deepin-screen-recorder
+</code></pre>
+<h3 id="15深度画板">15.深度画板</h3>
+<pre><code>$ sudo pacman -S deepin-draw
+</code></pre>
+<h3 id="16百度网盘">16.百度网盘</h3>
+<pre><code>$ sudo pacman -S baidunetdisk-bin
+</code></pre>
+<h3 id="17-qv2ray">17. Qv2ray</h3>
+<pre><code>$ sudo pacman -S  qv2ray
+# 阅读官方文档：https://qv2ray.github.io/getting-started
+# 下载v2ray-code：https://github.com/v2fly/v2ray-core/releases
+# 下载Qv2ray：https://github.com/Qv2ray/Qv2ray/releases
+# 将v2ray-code放置在~/.config/qv2ray/vcore/目录下
+# 添加订阅即可
+</code></pre>
+<h3 id="18uget-aria2">18.uget &amp; aria2</h3>
+<pre><code>$ sudo pacman -S uget
+$ sudo pacman -S aria2
+</code></pre>
+<h3 id="19foxitpdf阅读器">19.Foxit（PDF阅读器）</h3>
+<pre><code>$ sudo pacman -S foxit
+</code></pre>
+<h3 id="20screenfetch">20.screenfetch</h3>
+<pre><code>$ sudo pacman -S screenfetch
+</code></pre>
+<h3 id="21gparted分区管理工具">21.gparted分区管理工具</h3>
+<pre><code>$ sudo pacman -S gparted
+</code></pre>
+<h3 id="22虚拟机">22.虚拟机</h3>
+<pre><code>virtualbox
+$ sudo pacman -S virtualbox
+
+vmware-workstation
+$ sudo pacman -S vmware-workstation
+激活密钥
+CG54H-D8D0H-H8DHY-C6X7X-N2KG6
+
+ZC3WK-AFXEK-488JP-A7MQX-XL8YF
+
+AC5XK-0ZD4H-088HP-9NQZV-ZG2R4
+
+ZC5XK-A6E0M-080XQ-04ZZG-YF08D
+
+ZY5H0-D3Y8K-M89EZ-AYPEG-MYUA8
+
+FF590-2DX83-M81LZ-XDM7E-MKUT4
+
+FF31K-AHZD1-H8ETZ-8WWEZ-WUUVA
+
+CV7T2-6WY5Q-48EWP-ZXY7X-QGUWD
+
+AALYG-20HVE-WHQ13-67MUP-XVMF3
+</code></pre>
+<h2 id="4开发工具">4.开发工具</h2>
+<h3 id="1代码编辑器-vscode">1.代码编辑器 VSCode</h3>
+<pre><code>$ sudo pacman -S visual-studio-code-bin
+</code></pre>
+<h3 id="2openjdk8">2.OPENJDK8</h3>
+<pre><code>安装 openjdk8
+$ sudo pacman -S jdk8-openjdk
+$ sudo pacman -S jre8-openjdk
+$ sudo pacman -S jre8-openjdk-headless
+
+卸载 openjdk8
+$ sudo pacman -Rs jdk8-openjdk
+$ sudo pacman -Rs jre8-openjdk
+$ sudo pacman -Rs jre8-openjdk-headless
+</code></pre>
+<h3 id="3anaconda">3.Anaconda</h3>
+<pre><code>$ sudo pacman -S anaconda
+编辑～/.bashrc文件，在最后添加
+source /opt/anaconda/bin/activate root
+</code></pre>
+<h3 id="4jet-brains的-c-python-java-的-ide">4.Jet brains的 C 、Python 、Java 的 IDE</h3>
+<pre><code>$ sudo pacman -S clion clion-cmake make clion-lldb
+
+$ sudo pacman -S pycharm-professional
+
+$ sudo pacman -S intellij-idea-ultimate-edition
+</code></pre>
+<h3 id="5mysql">5.MySQL</h3>
+<pre><code>$ sudo pacman -S mysql #下载MySQL
+
+$ sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql #初始化MySQL数据库
+
+$ sudo systemctl enable mysqld.service #设置开机自启
+
+$ sudo systemctl start mysqld.service #启动MySQL服务
+
+$ systemctl status mysqld.service #查看MySQL服务状态
+
+$ mysql -uroot -p #连接数据库输入密码
+
+mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456'; #使用SQL语句修改默认密码
+
+# 帮助文档
+[client]
+# 设置 mysql 客户端 socket 文件位置
+socket = /usr/local/share/mysql/mysql.sock
+
+[mysql]
+# 设置mysql客户端默认字符集
+default-character-set = UTF8MB4
+socket = /usr/local/share/mysql/mysql.sock
+
+[mysqld]
+innodb_buffer_pool_size = 128M
+
+# mysql 安装目录
+basedir = /usr/local/share/mysql
+
+# mysql 数据存储目录
+datadir = /usr/local/share/mysql/data
+
+# 端口
+port = 3306
+
+# 本机序号为1，表示master
+server_id = 1
+
+# 设置 mysql 服务端 socket 文件位置
+socket = /usr/local/share/mysql/mysql.sock
+
+# 设置mysql最大连接数
+max_connections = 20
+
+# 服务端使用的字符集默认为8比特编码的latin1字符集
+character-set-server = UTF8MB4
+
+# 创建新表时将使用的默认存储引擎
+default-storage-engine = INNODB
+
+# 联合查询操作所能使用的缓冲区大小，和sort_buffer_size一样，该参数对应的分配内存也是每连接独享。
+join_buffer_size = 128M
+
+# MySQL执行排序使用的缓冲大小。如果想要增加ORDER BY的速度，首先看是否可以让MySQL使用索引而不是额外的排序阶段。
+sort_buffer_size = 8M
+
+# MySQL的随机读缓冲区大小。当按任意顺序读取行时(例如，按照排序顺序)，将分配一个随机读缓存区。
+read_rnd_buffer_size = 4M 
+
+# 一个事务，在没有提交的时候，产生的日志，记录到Cache中；等到事务提交需要提交的时候，则把日志持久化到磁盘。
+# 默认binlog_cache_size大小32K
+binlog_cache_size = 1M
+
+# 这个值（默认8）表示可以重新利用保存在缓存中线程的数量，当断开连接时如果缓存中还有空间，那么客户端的线程将被放到缓存中，
+# 如果线程重新被请求，那么请求将从缓存中读取,如果缓存中是空的或者是新的请求，那么这个线程将被重新创建,如果有很多新的线程，
+# 增加这个值可以改善系统性能.通过比较Connections和Threads_created状态的变量，可以看到这个变量的作用。(–&gt;表示要调整的值)
+# 根据物理内存设置规则如下：
+# 1G  —&gt; 8
+# 2G  —&gt; 16
+# 3G  —&gt; 32
+# 大于3G  —&gt; 64
+thread_cache_size = 8
+
+# MySQL的查询缓冲大小（从4.0.1开始，MySQL提供了查询缓冲机制）使用查询缓冲，MySQL将SELECT语句和查询结果存放在缓冲区中，
+# 今后对于同样的SELECT语句（区分大小写），将直接从缓冲区中读取结果。根据MySQL用户手册，使用查询缓冲最多可以达到238%的效率。
+# 通过检查状态值'Qcache_%'，可以知道query_cache_size设置是否合理：如果Qcache_lowmem_prunes的值非常大，则表明经常出现缓冲不够的情况，
+# 如果Qcache_hits的值也非常大，则表明查询缓冲使用非常频繁，此时需要增加缓冲大小；如果Qcache_hits的值不大，则表明你的查询重复率很低，
+# 这种情况下使用查询缓冲反而会影响效率，那么可以考虑不用查询缓冲。此外，在SELECT语句中加入SQL_NO_CACHE可以明确表示不使用查询缓冲
+# query_cache_size = 8M
+
+# 指定单个查询能够使用的缓冲区大小，默认1M
+# query_cache_limit = 2M
+
+# 指定用于索引的缓冲区大小，增加它可得到更好处理的索引(对所有读和多重写)，到你能负担得起那样多。如果你使它太大，
+# 系统将开始换页并且真的变慢了。对于内存在4GB左右的服务器该参数可设置为384M或512M。通过检查状态值Key_read_requests和Key_reads，
+# 可以知道key_buffer_size设置是否合理。比例key_reads/key_read_requests应该尽可能的低，
+# 至少是1:100，1:1000更好(上述状态值可以使用SHOW STATUS LIKE 'key_read%'获得)。注意：该参数值设置的过大反而会是服务器整体效率降低
+key_buffer_size = 4M
+
+# 分词词汇最小长度，默认4
+ft_min_word_len = 4
+
+# MySQL支持4种事务隔离级别，他们分别是：
+# READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE.
+# 如没有指定，MySQL默认采用的是REPEATABLE-READ，ORACLE默认的是READ-COMMITTED
+transaction_isolation = REPEATABLE-READ
+
+# 默认时区
+default-time_zone = '+8:00'
+
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO
+</code></pre>
+<h3 id="7-navicat">7. Navicat</h3>
+<pre><code># Linux下的破解版 MySQL 图形化工具
+激活教程: http://navicat.rainss.cc
+下载地址: http://navicat.rainss.cc/down.php
+激活工具: http://navicat.rainss.cc/a&gt;
+</code></pre>
+<h3 id="8eclipse-java">8.eclipse-java</h3>
+<pre><code>$ sudo pacman -S eclipse-java
+</code></pre>
+<h3 id="9其他开发工具">9.其他开发工具</h3>
+<pre><code>$ sudo pacman -S make
+$ sudo pacman -S cmake
+$ sudo pacman -S clang
+$ sudo pacman -S nodejs
+$ sudo pacman -S npm
+$ sudo pacman -S goland
+$ sudo pacman -S maven
+$ sudo pacman -S goland # Go IDE
+$ sudo pacman -S qtcreator # 一款QT开发软件
+$ sudo pacman -S postman-bin
+$ sudo pacman -S insomnia # REST模拟工具
+$ sudo pacman -S gitkraken # GIT管理工具
+$ sudo pacman -S wireshark-qt # 抓包
+$ sudo pacman -S zeal
+$ sudo pacman -S gitkraken # Git 管理工具
+
+终端
+$ sudo pacman -S screenfetch # 终端打印出你的系统信息，screenfetch -A 'Arch Linux'
+$ sudo pacman -S htop
+$ sudo pacman -S bat
+$ sudo pacman -S yakuake # 堪称 KDE 下的终端神器，KDE 已经自带，F12 可以唤醒
+$ sudo pacman -S net-tools # 这样可以使用 ifconfig 和 netstat
+$ yay -S tldr
+$ yay -S tig # 命令行下的 git 历史查看工具
+$ yay -S tree
+$ yay -S ncdu # 命令行下的磁盘分析器，支持Vim操作
+$ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇效
+</code></pre>
+<h2 id="5常用pacman命令">5.常用pacman命令</h2>
+<h3 id="1更新系统">1.更新系统</h3>
+<pre><code>$ sudo pacman -Syu      对整个系统进行更新（常用）   
+$ sudo pacman -Syy      强制更新    
+$ sudo pacman -Syudd        使用 -dd跳过所有检测
+</code></pre>
+<h3 id="2安装包">2.安装包</h3>
+<pre><code>$ sudo pacman -S 包名     例如，执行 pacman -S firefox 将安装 Firefox。你也可以同时安装多个包，只需以空格分隔包名即可
+$ sudo pacman -Sy 包名        与上面命令不同的是，该命令将在同步包数据库后再执行安装
+$ sudo pacman -Sv 包名        在显示一些操作信息后执行安装
+$ sudo pacman -U    包名      安装本地包，其扩展名为 pkg.tar.gz
+$ sudo pacman -U ulr        http://www.example.com/repo/example.pkg.tar.xz 安装一个远程包（不在 pacman 配置的源里面）
+</code></pre>
+<h3 id="3删除包">3.删除包</h3>
+<pre><code>$ sudo pacman -R 包名     该命令将只删除包，保留其全部已经安装的依赖关系
+$ sudo pacman -Rs 包名        在删除包的同时，删除其所有没有被其他已安装软件包使用的依赖关系
+$ sudo pacman -Rsc 包名   在删除包的同时，删除所有依赖这个软件包的程序
+$ sudo pacman -Rd 包名        在删除包时不检查依赖
+</code></pre>
+<h3 id="4搜索包">4.搜索包</h3>
+<pre><code>$ sudo pacman -Ss 关键字   在仓库中搜索含关键字的包
+$ sudo pacman -Qs 关键字   搜索已安装的包
+$ sudo pacman -Qi 包名        查看有关包的详尽信息
+$ sudo pacman -Ql 包名        列出该包的文件
+</code></pre>
+<h3 id="5其他用法">5.其他用法</h3>
+<pre><code>$ sudo pacman -Sw 包名        只下载包，不安装
+$ sudo pacman -Sc       清理未安装的包文件，包文件位于 /var/cache/pacman/pkg/ 目录
+$ sudo pacman -Scc      清理所有的缓存文件
+</code></pre>
+<h3 id="6清理垃圾">6.清理垃圾</h3>
+<pre><code>$ sudo pacman -Rsn $(pacman -Qdtq)
+$ sudo pacman -Scc
+$ sudo rm /var/lib/systemd/coredump/.
+$ sudo journalctl --vacuum-size=50M
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[人民日报评论员：向着治理现代化不断迈进]]></title>
         <id>https://purzelon.github.io/5g_GDZRAG/</id>
