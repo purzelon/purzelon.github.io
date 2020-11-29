@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://purzelon.github.io/</id>
     <title>MuLizb</title>
-    <updated>2020-11-29T14:17:32.644Z</updated>
+    <updated>2020-11-29T14:21:25.539Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://purzelon.github.io/"/>
     <link rel="self" href="https://purzelon.github.io/atom.xml"/>
@@ -10,6 +10,19 @@
     <logo>https://purzelon.github.io/images/avatar.png</logo>
     <icon>https://purzelon.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, MuLizb</rights>
+    <entry>
+        <title type="html"><![CDATA[华硕4100UQ，Catalina，Big Sur]]></title>
+        <id>https://purzelon.github.io/yNC0jhLET/</id>
+        <link href="https://purzelon.github.io/yNC0jhLET/">
+        </link>
+        <updated>2020-11-29T14:17:40.000Z</updated>
+        <content type="html"><![CDATA[<p><img src="https://purzelon.github.io//post-images/1606659678034.png" alt="" loading="lazy"><br>
+Catalina EFI</p>
+<p><strong>https://muli.lanzous.com/id1M6it5x3i</strong></p>
+<p>Big Sur EFI</p>
+<p><strong>https://muli.lanzous.com/iSEykit5xaf</strong></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Manjaro安装记录]]></title>
         <id>https://purzelon.github.io/ABtHIrRIg/</id>
