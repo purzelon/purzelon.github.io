@@ -2,14 +2,85 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://purzelon.github.io/</id>
     <title>MuLizb</title>
-    <updated>2020-11-30T05:03:55.587Z</updated>
+    <updated>2021-02-22T15:48:10.760Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://purzelon.github.io/"/>
     <link rel="self" href="https://purzelon.github.io/atom.xml"/>
     <subtitle>明天你好</subtitle>
     <logo>https://purzelon.github.io/images/avatar.png</logo>
     <icon>https://purzelon.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, MuLizb</rights>
+    <rights>All rights reserved 2021, MuLizb</rights>
+    <entry>
+        <title type="html"><![CDATA[JD_DOCKER]]></title>
+        <id>https://purzelon.github.io/jd_docker/</id>
+        <link href="https://purzelon.github.io/jd_docker/">
+        </link>
+        <updated>2021-02-22T15:31:44.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>jd-base</strong></p>
+<p>https://muli.lanzous.com/in7pim0posj</p>
+<p>如果您是第一次安装，请等待1-2分钟后执行：docker exec -it jd bash git_pull，食用方法↓：</p>
+<pre><code>docker run -dit \
+   -v /安装目录/jd/config:/jd/config \
+   -v /安装目录/jd/log:/jd/log \
+   -p 5678:5678 \
+   -e ENABLE_HANGUP=true \
+   -e ENABLE_WEB_PANEL=true \
+   --name jd \
+   --hostname jd \
+   --restart always \
+   noobx/jd:gitee
+</code></pre>
+<p>如需映射脚本出来直接在上面加一行：</p>
+<pre><code>-v /安装目录/jd/scripts:/jd/scripts \
+</code></pre>
+<p>node基础镜像</p>
+<pre><code>noobx/jd:gitee
+</code></pre>
+<p>集成python与node镜像</p>
+<pre><code>noobx/jd:py
+</code></pre>
+<p>你要知道的命令↓<br>
+1.手动 git pull 更新脚本</p>
+<pre><code>docker exec -it jd bash git_pull
+</code></pre>
+<p>2.手动删除指定时间以前的旧日志</p>
+<pre><code>docker exec -it jd bash rm_log
+</code></pre>
+<p>3.手动导出所有互助码</p>
+<pre><code>docker exec -it jd bash export_sharecodes
+</code></pre>
+<p>4.手动启动挂机程序**（容器会在启动时立即启动挂机程序，所以你想重启挂机程序，你也可以重启容器，而不采用下面的方法。）**</p>
+<pre><code>docker exec -it jd bash jd hangup
+</code></pre>
+<p>5.手动执行薅羊毛脚本，用法如下(其中-it后面的jd为容器名，bash后面的jd为命令名，xxx为lxk0301大佬的脚本名称)，不支持直接以node xxx.js命令运行：</p>
+<pre><code>docker exec -it jd bash jd xxx      # 如果设置了随机延迟并且当时时间不在0-2、30-31、59分内，将随机延迟一定秒数
+docker exec -it jd bash jd xxx now  # 无论是否设置了随机延迟，均立即运行
+</code></pre>
+<p>6.Copy自定义脚本到容器目录</p>
+<pre><code>docker cp /宿主机上脚本存放路径/test.js jd:/jd/scripts
+</code></pre>
+<p>7.查看创建日志</p>
+<pre><code>docker logs -f jd
+</code></pre>
+<p>8.重置WEB面板密码</p>
+<pre><code>docker exec -it jd bash jd resetpwd
+</code></pre>
+<p>9.查看挂机脚本日志</p>
+<pre><code>docker exec -it jd pm2 monit`或`docker exec -it jd pm2 logs
+</code></pre>
+<p>10.重启容器</p>
+<pre><code>docker restart jd
+</code></pre>
+<p>11.如何自动更新容器</p>
+<pre><code>docker run -d \
+    --name watchtower \
+    --restart always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower \
+    --cleanup
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[华硕4100UQ，Catalina，Big Sur]]></title>
         <id>https://purzelon.github.io/yNC0jhLET/</id>
