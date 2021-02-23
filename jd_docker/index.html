@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://purzelon.github.io//favicon.ico?v=1614008796117">
+<link rel="shortcut icon" href="https://purzelon.github.io//favicon.ico?v=1614063872403">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://purzelon.github.io//styles/main.css">
 
@@ -39,7 +39,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://purzelon.github.io/">
-        <img class="avatar" src="https://purzelon.github.io//images/avatar.png?v=1614008796117" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://purzelon.github.io//images/avatar.png?v=1614063872403" alt="" width="32px" height="32px">
       </a>
       <a href="https://purzelon.github.io/">
         <h1 class="site-title">MuLizb</h1>
@@ -157,6 +157,10 @@ docker exec -it jd bash jd xxx now  # 无论是否设置了随机延迟，均立
     -v /var/run/docker.sock:/var/run/docker.sock \
     containrrr/watchtower \
     --cleanup
+</code></pre>
+<p>12.如何复制文件<br>
+找到容器中文件位置之后，执行 docker cp myRedis:/etc/redis/redis.conf  /User 将docker容器中/etc/redis下的redis.conf拷贝到宿主机器的/User下。</p>
+<pre><code>docker cp 容器id:容器文件位置  需要拷贝到的宿主位置
 </code></pre>
 
           </div>
