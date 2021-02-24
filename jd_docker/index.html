@@ -6,7 +6,7 @@
 
 <title>JD_DOCKER | MuLizb</title>
 
-<link rel="shortcut icon" href="https://purzelon.github.io//favicon.ico?v=1614083363007">
+<link rel="shortcut icon" href="https://purzelon.github.io//favicon.ico?v=1614137726544">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://purzelon.github.io//styles/main.css">
@@ -179,7 +179,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1614083363007"
+            <form id="gridea-search-form" style="position: relative" data-update="1614137726544"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -277,6 +277,9 @@ docker exec -it jd bash jd xxx now  # 无论是否设置了随机延迟，均立
 <p>12.如何复制文件<br>
 找到容器中文件位置之后，执行 docker cp myRedis:/etc/redis/redis.conf  /User 将docker容器中/etc/redis下的redis.conf拷贝到宿主机器的/User下。</p>
 <pre><code>docker cp 容器id:容器文件位置  需要拷贝到的宿主位置
+</code></pre>
+<p>13.进入到jd容器里边</p>
+<pre><code>docker exec -it jd /bin/bash
 </code></pre>
 
                 </div>

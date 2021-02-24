@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://purzelon.github.io/</id>
     <title>MuLizb</title>
-    <updated>2021-02-23T12:30:23.988Z</updated>
+    <updated>2021-02-24T03:35:29.316Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://purzelon.github.io/"/>
     <link rel="self" href="https://purzelon.github.io/atom.xml"/>
@@ -82,6 +82,9 @@ docker exec -it jd bash jd xxx now  # 无论是否设置了随机延迟，均立
 <p>12.如何复制文件<br>
 找到容器中文件位置之后，执行 docker cp myRedis:/etc/redis/redis.conf  /User 将docker容器中/etc/redis下的redis.conf拷贝到宿主机器的/User下。</p>
 <pre><code>docker cp 容器id:容器文件位置  需要拷贝到的宿主位置
+</code></pre>
+<p>13.进入到jd容器里边</p>
+<pre><code>docker exec -it jd /bin/bash
 </code></pre>
 ]]></content>
     </entry>
