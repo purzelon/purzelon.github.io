@@ -4,9 +4,9 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>test | MuLizb</title>
+<title>shell基础之后台运行脚本 | MuLizb</title>
 
-<link rel="shortcut icon" href="https://purzelon.github.io//favicon.ico?v=1620400244936">
+<link rel="shortcut icon" href="https://purzelon.github.io//favicon.ico?v=1620567986776">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://purzelon.github.io//styles/main.css">
@@ -179,7 +179,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1620400244936"
+            <form id="gridea-search-form" style="position: relative" data-update="1620567986776"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -202,7 +202,7 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    test
+                    shell基础之后台运行脚本
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
@@ -211,7 +211,26 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>ssssss</p>
+                    <p>使shell脚本后台执行，基本的方法有两种，第一种为在脚本后面追加&amp;符号，第二种为在脚本前面使用nohup命令，结尾再追加&amp;符号</p>
+<p>一、后台运行脚本1</p>
+<p>1、执行脚本test.sh:./test.sh</p>
+<p>2、中断脚本test.sh：ctrl+c</p>
+<p>3、在1的基础上将运行中的test.sh，切换到后台并暂停：ctrl+z</p>
+<p>4、执行ctrl+z后，test.sh在后台是暂停状态（stopped），使用命令：bg number让其在后台开始运行（“number”是使用jobs命令查到的 [ ]中的数字，不是pid）</p>
+<p>5、直接在后台运行脚本test.sh:./test.sh &amp;</p>
+<p>6、查看当前shell环境中已启动的任务情况：jobs</p>
+<p>7、将test.sh切换到前台运行：fg %number（”number”为使用jobs命令查看到的 [ ] 中的数字，不是pid）</p>
+<p>8、中断后台运行的test.sh脚本：先fg %number切换到前台，再ctrl+c；或是直接kill %number</p>
+<p>以上两种在后台运行test.sh的方法，当遇到退出当前shell终端时，后台运行的test.sh也就结束了。这是因为以上两种方法使得test.sh在后台运行时，运行test.sh进程的父进程是当前shell终端进程，关闭当前shell终端时，父进程退出，会发送hangup信号给所有子进程，子进程收到hangup以后也会退出。所以要想退出当前shell终端时test.sh继续运行，则需要使用nohup忽略hangup信号。</p>
+<p>二、不中断后台运行脚本</p>
+<p>1、不中断的在后台运行test.sh：nohup ./test.sh &amp;（test.sh的打印信息会输出到当前目录下的nohup.out中）</p>
+<p>2、使用jobs可看到test.sh处于running状态</p>
+<p>3、使用ps -ef |grep test.sh可查看到正在运行的test.sh脚本进程</p>
+<p>4、退出当前shell终端，再重新打开，使用jobs看不到正在运行的test.sh，但使用ps -ef可以看到</p>
+<p>5、在后台不中断的运行test.sh，可以使用nohup忽略hangup信号，或者使用setsid将其父进程改为init进程（进程号为1）</p>
+<p>不中断的在后台运行test.sh另一个命令：setsid ./test.sh &amp;</p>
+<p>使用ps -ef |grep test.sh可看到test.sh进程的父进程id为1</p>
+<p>分类: Shell编程</p>
 
                 </div>
             </article>
